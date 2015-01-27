@@ -4,17 +4,24 @@ var favicon = require('static-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-var multer = require('multer');
+var jwt = require('jwt-simple');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
 var pictures = require('./routes/pictures');
+var map = require('./routes/map');
+var auth = require('./routes/auth');
 
-var app = express();
+app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
+
+/**
+ * Set the secret for encoding/decoding JWT tokens
+ */
+app.set('jwtTokenSecret', 'secret-value')
 
 app.use(favicon());
 app.use(logger('dev'));
@@ -24,22 +31,11 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use(multer({
-    dest: './public/uploads/',
-    rename: function(fieldname, filename) {
-        return Date.now();
-    },
-    onFileUploadStart: function(file) {
-        console.log(file.originalname + ' is starting ...')
-    },
-    onFileUploadComplete: function(file) {
-        console.log(file.fieldname + ' uploaded to  ' + file.path)
-    }
-}));
-
 app.use('/', routes);
+app.use('/login', auth);
 app.use('/users', users);
 app.use('/pictures', pictures);
+app.use('/map', map);
 
 var mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/travelly', function(err) {

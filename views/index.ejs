@@ -1,17 +1,15 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-  </head>
-  <body>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
-
-<form id = "uploadForm" enctype = "multipart/form-data" action = "/pictures" method = "post">
-<input type="file" name="picture" />
-<input type="submit" value="Upload Image" name="submit">
-</form>
-
-  </body>
+	<head>
+		<title><%= title %></title>
+		<link rel='stylesheet' href='/stylesheets/style.css' />
+	</head>
+	<body>
+		<h1><%= title %></h1>
+		<p>Welcome to <%= title %></p>
+		<form id = "uploadForm" enctype = "multipart/form-data" action = "/pictures" method = "post">
+			<input type="file" name="picture" />
+			<input type="submit" value="Upload Image" name="submit">
+		</form>
+	</body>
 </html>
