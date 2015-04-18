@@ -8,13 +8,12 @@ var Picture = require('../models/Picture.js');
 /**
  * THe JWT middleware
  */
-var jwtauth = require('../lib/jwtauth')
+var jwtauth = require('../lib/jwtauth');
 
 /**
  * A simple middleware to restrict access to authenticated users
  */
 var requireAuth = function(req, res, next) {
-
     if (!req.user) {
         res.status(401).end('Not authorized')
     }   else {
